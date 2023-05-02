@@ -16,19 +16,18 @@ if(edad >= 35){
     
     switch (true){
         case resultado < 18.5:
-            alert(`${nombre} tu indice de masa corporal es ${resultado}, estás bajo de peso`);
+            alert(`${nombre} tu indice de masa corporal es ${resultado.toFixed(2)}, estás bajo de peso`);
             break;
         case resultado >= 18.5 && resultado < 25:
-            alert(`${nombre} tu indice de masa corporal es ${resultado}, tu peso es normal`);
+            alert(`${nombre} tu indice de masa corporal es ${resultado.toFixed(2)}, tu peso es normal`);
             break;
         case resultado >= 25 && resultado < 30:
-            alert(`${nombre} tu indice de masa corporal es ${resultado}, estás por encima de un peso normal`);
+            alert(`${nombre} tu indice de masa corporal es ${resultado.toFixed(2)}, estás por encima de un peso normal`);
             break;
         default:
-            alert(`${nombre} tu indice de masa corporal es ${resultado}, tienes sobrepeso, debes bajar de peso por tu salud`);
+            alert(`${nombre} tu indice de masa corporal es ${resultado.toFixed(2)}, tienes sobrepeso, debes bajar de peso por tu salud`);
             break;
     }
 }else{
     alert("No te encuentras en edad de riesgo cardiovascular")
 }
-
