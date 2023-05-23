@@ -1,2 +1,2 @@
-# PreEntrega1Cordones
+# PreEntrega2Cordones
 Curso de Javascript Coder
