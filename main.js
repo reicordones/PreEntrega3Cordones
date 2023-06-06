@@ -1,119 +1,112 @@
-class Pacientes {
-    constructor(nombre, apellido, dni, peso, altura) {
-      this.nombre = nombre;
-      this.apellido = apellido;
-      this.dni = dni;
-      this.peso = peso;
-      this.altura = altura;
-    }
+class Paciente {
+  constructor(nombre, apellido, dni, peso, altura) {
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.dni = dni;
+    this.peso = peso;
+    this.altura = altura;
   }
-
-  const pacienteReinaldo = new Pacientes('Reinaldo', 'Cordones', 12345678, 73, 1.69);
-  const pacienteRebecca = new Pacientes('Rebecca', 'Cordones', 87654321, 25, 1.43);
-  const pacienteVeronica = new Pacientes('Veronica', 'Suarez', 1234567, 77, 1.89);
-  const pacienteFelipe = new Pacientes('Felipe', 'Jacome', 12345679, 58, 1.63);
-  
-  const arrayPacientes = [];
-  
-  arrayPacientes.push(pacienteReinaldo);
-  arrayPacientes.push(pacienteRebecca);
-  arrayPacientes.push(pacienteVeronica);
-  arrayPacientes.push(pacienteFelipe);
-  
-  console.log(arrayPacientes);
-  
-  //Función con el menú de opciones:
-  
-  function menu() {
-    alert('Bienvenido al control de riesgo Cardiovascular');
-    let opcion = parseInt(
-      prompt(
-        'Ingrese una opción: \n 1) Registro de paciente \n 2) Indice de masa corporal \n 3) Salir'
-      )
-    );
-    return opcion;
-  }
-
-  //Función para registrar un paciente:
-
-function registroPaciente() {
-  let nombre = prompt('Ingrese el nombre del paciente: ');
-  let apellido = prompt('Ingrese el apellido del paciente: ');
-  let dni = parseInt(prompt('Ingrese el DNI del paciente: '));
-  let peso = parseInt(prompt('Ingrese el peso del paciente: '));
-  let altura = parseInt(prompt('Ingrese la altura del paciente en metros: '));
-  let paciente = new Pacientes(nombre, apellido, dni, peso, altura);
-  arrayPacientes.push(paciente);
-  console.log(arrayPacientes);
-}
 
 //Función para calcular indice de masa corporal
 
-function calcularIMC() {
-  let dni = parseInt(prompt("Ingrese DNI del paciente"));
-  let paciente = arrayPacientes.find((paciente) => paciente.dni === dni);
+  calcularIMC() {
+    let resultado = this.peso / (this.altura ** 2);
+    return resultado.toFixed(2);
+  }
 
-  if (paciente) {
-    let peso = paciente.peso;
-    let altura = paciente.altura;
-    let resultado = peso / (altura ** 2);
+  obtenerRecomendacion() {
+    let imc = this.calcularIMC();
+    let recomendacion = '';
 
-    let nacimiento = parseInt(prompt("Ingrese su año de nacimiento"));
-    let edad = 2023 - nacimiento;
-    alert(`Hola ${paciente.nombre}, tienes ${edad} años de edad`);
-
-    if (edad >= 35) {
-      alert('Analizaremos tu riesgo cardiovascular');
-      switch (true) {
-        case resultado < 18.5: {
-          alert(`${paciente.nombre}, tu índice de masa corporal es ${resultado.toFixed(2)}, estás bajo de peso`);
-          break;
-        }
-        case resultado >= 18.5 && resultado < 25: {
-          alert(`${paciente.nombre}, tu índice de masa corporal es ${resultado.toFixed(2)}, tu peso es normal`);
-          break;
-        }
-        case resultado >= 25 && resultado < 30: {
-          alert(`${paciente.nombre}, tu índice de masa corporal es ${resultado.toFixed(2)}, estás por encima de un peso normal`);
-          break;
-        }
-        default: {
-          alert(`${paciente.nombre}, tu índice de masa corporal es ${resultado.toFixed(2)}, tienes sobrepeso, debes bajar de peso por tu salud`);
-          break;
-        }
-      }
+    if (imc < 18.5) {
+      recomendacion = 'Estás bajo de peso. Consulta a un profesional de la salud.';
+    } else if (imc >= 18.5 && imc < 25) {
+      recomendacion = 'Tu peso es normal. ¡Sigue así!';
+    } else if (imc >= 25 && imc < 30) {
+      recomendacion = 'Estás por encima de un peso normal. Considera realizar actividad física y llevar una dieta balanceada.';
     } else {
-      alert("No te encuentras en edad de riesgo cardiovascular");
+      recomendacion = 'Tienes sobrepeso. Es importante que consultes a un profesional de la salud y adoptes hábitos saludables.';
     }
-  } else {
-    alert("No se encontró al paciente en la lista");
+
+    return recomendacion;
   }
 }
 
-//Función para salir del programa:
+//Registro de pacientes
 
-function salir() {
-  alert('Gracias por utilizar nuestro análisis ');
+const arrayPacientes = [];
+const formulario = document.getElementById('formulario');
+const btnRegistrar = document.getElementById('btnRegistrar');
+const btnCalcularIMC = document.getElementById('btnCalcularIMC');
+const infoPacientes = document.getElementById('infoPacientes');
+
+formulario.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  const nombre = document.getElementById('nombre').value;
+  const apellido = document.getElementById('apellido').value;
+  const dni = document.getElementById('dni').value;
+  const peso = document.getElementById('peso').value;
+  const altura = document.getElementById('altura').value;
+  
+  const paciente = new Paciente(nombre, apellido, dni, peso, altura);
+  arrayPacientes.push(paciente);
+  
+  formulario.reset();
+  
+  mostrarPacientes();
+});
+
+//Traer IMC por DNI
+
+btnCalcularIMC.addEventListener('click', () => {
+  const dni = prompt('Ingrese el DNI del paciente:');
+  mostrarIMCPaciente(dni);
+});
+
+function mostrarPacientes() {
+  console.log(arrayPacientes);
+  
+  let pacientesHTML = '';
+  
+  arrayPacientes.forEach((paciente) => {
+    const pacienteHTML = `
+      <div>
+        <h3>${paciente.nombre} ${paciente.apellido}</h3>
+        <p>DNI: ${paciente.dni}</p>
+        <p>Peso: ${paciente.peso} kg</p>
+        <p>Altura: ${paciente.altura} m</p>
+        <hr>
+      </div>
+    `;
+    
+    pacientesHTML += pacienteHTML;
+  });
+  
+  infoPacientes.innerHTML = pacientesHTML;
 }
 
-//Ejecuto el programa:
-
-let opcion;
-
-while (opcion !== 3) {
-  opcion = menu();
-  switch (opcion) {
-    case 1:
-      registroPaciente();
-      break;
-    case 2:
-      calcularIMC();
-      break;
-    case 3:
-      salir();
-      break;
-    default:
-      alert('Opción incorrecta');
-      break;
+function mostrarIMCPaciente(dni) {
+  const paciente = arrayPacientes.find((paciente) => paciente.dni === dni);
+  
+  if (paciente) {
+    const imc = paciente.calcularIMC();
+    const recomendacion = paciente.obtenerRecomendacion();
+    
+    let pacienteHTML = `
+      <div>
+        <h3>${paciente.nombre} ${paciente.apellido}</h3>
+        <p>DNI: ${paciente.dni}</p>
+        <p>Peso: ${paciente.peso} kg</p>
+        <p>Altura: ${paciente.altura} m</p>
+        <p>IMC: ${imc}</p>
+        <p>Recomendación: ${recomendacion}</p>
+        <hr>
+      </div>
+    `;
+    
+    infoPacientes.innerHTML = pacienteHTML;
+  } else {
+    infoPacientes.innerHTML = 'No se encontró al paciente.';
   }
 }

@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+  }
+  
+  h1 {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  .imc{
+    background-color: rgb(97, 67, 228);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "titulo  titulo"
+                         "nombre apellido"
+                         "dni      peso"
+                         "altura boton";
+  }
+  .imc h2 {
+    grid-area: titulo;
+    color: white;
+    margin: 0 auto;
+  }
+  .imc label {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding: 10px;
+  }
+  .imc label input {
+    background-color: white;
+    border-radius: 5px;
+    border-bottom: 1px solid white;
+    padding: 10px;
+  }
+  .imc button {
+    grid-area: boton;
+    border: none;
+    border-radius: 5px;
+    background-color: #898bed;
+    padding: 10px;
+    margin: 10px;
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  .imc label:nth-child(2) {
+    grid-area: nombre;
+  }
+  
+  .imc label:nth-child(3) {
+    grid-area: apellido;
+  }
+  
+  .imc label:nth-child(4) {
+    grid-area: dni;
+  }
+  
+  .imc label:nth-child(5) {
+    grid-area: peso;
+  }
+  .imc label:nth-child(6) {
+    grid-area: altura;
+  }
+
+  .botonImc {
+    padding: 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color:darkorchid;
+    color: white;
+
+  }
+
+  .recomendacion {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .recomendacion.bajo-peso {
+    color: yellow;
+  }
+  
+  .recomendacion.sobrepeso {
+    color: red;
+  }
+  
+  .recomendacion.peso-normal {
+    color: green;
+  }
