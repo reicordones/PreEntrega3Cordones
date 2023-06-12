@@ -7,8 +7,7 @@ class Paciente {
     this.altura = altura;
   }
 
-//Función para calcular indice de masa corporal
-
+  // Función para calcular índice de masa corporal
   calcularIMC() {
     let resultado = this.peso / (this.altura ** 2);
     return resultado.toFixed(2);
@@ -32,9 +31,15 @@ class Paciente {
   }
 }
 
-//Registro de pacientes
+// Registro de pacientes
 
-const arrayPacientes = [];
+let arrayPacientes = [];
+
+// Verificar si hay datos almacenados en localStorage y cargarlos
+if (localStorage.getItem('pacientes')) {
+  arrayPacientes = JSON.parse(localStorage.getItem('pacientes'));
+}
+
 const formulario = document.getElementById('formulario');
 const btnRegistrar = document.getElementById('btnRegistrar');
 const btnCalcularIMC = document.getElementById('btnCalcularIMC');
@@ -42,22 +47,25 @@ const infoPacientes = document.getElementById('infoPacientes');
 
 formulario.addEventListener('submit', (e) => {
   e.preventDefault();
-  
+
   const nombre = document.getElementById('nombre').value;
   const apellido = document.getElementById('apellido').value;
   const dni = document.getElementById('dni').value;
   const peso = document.getElementById('peso').value;
   const altura = document.getElementById('altura').value;
-  
+
   const paciente = new Paciente(nombre, apellido, dni, peso, altura);
   arrayPacientes.push(paciente);
-  
+
+  // Guardar el array de pacientes en localStorage
+  localStorage.setItem('pacientes', JSON.stringify(arrayPacientes));
+
   formulario.reset();
-  
+
   mostrarPacientes();
 });
 
-//Traer IMC por DNI
+// Traer IMC por DNI
 
 btnCalcularIMC.addEventListener('click', () => {
   const dni = prompt('Ingrese el DNI del paciente:');
@@ -66,9 +74,9 @@ btnCalcularIMC.addEventListener('click', () => {
 
 function mostrarPacientes() {
   console.log(arrayPacientes);
-  
+
   let pacientesHTML = '';
-  
+
   arrayPacientes.forEach((paciente) => {
     const pacienteHTML = `
       <div>
@@ -79,20 +87,20 @@ function mostrarPacientes() {
         <hr>
       </div>
     `;
-    
+
     pacientesHTML += pacienteHTML;
   });
-  
+
   infoPacientes.innerHTML = pacientesHTML;
 }
 
 function mostrarIMCPaciente(dni) {
   const paciente = arrayPacientes.find((paciente) => paciente.dni === dni);
-  
+
   if (paciente) {
     const imc = paciente.calcularIMC();
     const recomendacion = paciente.obtenerRecomendacion();
-    
+
     let pacienteHTML = `
       <div>
         <h3>${paciente.nombre} ${paciente.apellido}</h3>
@@ -104,9 +112,13 @@ function mostrarIMCPaciente(dni) {
         <hr>
       </div>
     `;
-    
+
     infoPacientes.innerHTML = pacienteHTML;
   } else {
     infoPacientes.innerHTML = 'No se encontró al paciente.';
   }
 }
+
+// Mostrar pacientes al cargar la página
+mostrarPacientes();
+
