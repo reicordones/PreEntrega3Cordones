@@ -128,28 +128,28 @@ function handleCalcularIMC() {
 function mostrarPacientes() {
   console.log(arrayPacientes);
 
-  // let pacientesHTML = '';
+  let pacientesHTML = '';
 
-  // arrayPacientes.forEach(function (paciente) {
-  //   const imc = paciente.calcularIMC();
-  //   const recomendacion = paciente.obtenerRecomendacion();
+  arrayPacientes.forEach(function (paciente) {
+    const imc = paciente.calcularIMC();
+    const recomendacion = paciente.obtenerRecomendacion();
 
-  //   const pacienteHTML = `
-  //     <div>
-  //       <h3>${paciente.nombre} ${paciente.apellido}</h3>
-  //       <p>DNI: ${paciente.dni}</p>
-  //       <p>Peso: ${paciente.peso} kg</p>
-  //       <p>Altura: ${paciente.altura} m</p>
-  //       <p>IMC: ${imc}</p>
-  //       <p>Recomendación: ${recomendacion}</p>
-  //       <hr>
-  //     </div>
-  //   `;
+    const pacienteHTML = `
+      <div>
+        <h3>${paciente.nombre} ${paciente.apellido}</h3>
+        <p>DNI: ${paciente.dni}</p>
+        <p>Peso: ${paciente.peso} kg</p>
+        <p>Altura: ${paciente.altura} m</p>
+        <p>IMC: ${imc}</p>
+        <p>Recomendación: ${recomendacion}</p>
+        <hr>
+      </div>
+    `;
 
-  //   pacientesHTML += pacienteHTML;
-  // });
+    pacientesHTML += pacienteHTML;
+  });
 
-  // infoPacientes.innerHTML = pacientesHTML;
+  infoPacientes.innerHTML = pacientesHTML;
 }
 
 // Función para limpiar la pantalla de información de pacientes
