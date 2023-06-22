@@ -1,0 +1,7 @@
+[
+    {"nombre": "Juan","apellido": "Pérez","dni": "12345678","peso": 70.5,"altura": 1.75},
+    {"nombre": "Reinaldo","apellido": "Cordones","dni": "123456","peso": 73,"altura": 1.69},
+    {"nombre": "Veronica","apellido": "Suarez","dni": "1234567","peso": 89,"altura": 1.70},
+    {"nombre": "Felipe","apellido": "Jacome","dni": "87654321","peso": 62,"altura": 1.68},
+    {"nombre": "Camila","apellido": "Suarez","dni": "11111111","peso": 23,"altura": 1.20}
+]
