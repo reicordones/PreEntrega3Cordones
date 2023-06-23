@@ -102,7 +102,11 @@ function handleSubmit(e) {
 
   const pacienteExistente = arrayPacientes.find(paciente => paciente.dni === dni);
   if (pacienteExistente) {
-    alert('Ya existe un paciente con el mismo DNI');
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Ya existe un paciente con el mismo DNI',
+    });
     return;
   }
 
@@ -114,6 +118,13 @@ function handleSubmit(e) {
   formulario.reset();
 
   mostrarPacientes();
+
+  Swal.fire({
+    title: '¡Registro exitoso!',
+    text: 'El paciente se ha registrado correctamente',
+    icon: 'success',
+    confirmButtonText: 'Cerrar'
+  });
 }
 
 // Función para manejar el botón de cálculo de IMC
